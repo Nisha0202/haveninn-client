@@ -17,52 +17,12 @@ export default function CardDetails() {
         return <div>No estate found with id {id}</div>;
     }
 
-    const confirmBooking = async () => {
-        try {
-          const { _id, ...estateWithoutId } = estate;
-          const updatedEstate = { ...estateWithoutId, status: 'Booked' };
-          await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
-          Swal.fire('Success', 'The room has been booked!', 'success');
-          closeModal();
-          
-        } catch (error) {
-            Swal.fire('Error', 'Failed to Confirm Booking', 'error');
-            console.error('Failed to update room status:', error);
-        }
-      };
-      
-
-
-
-    // const confirmBooking = async () => {
-    //     if (!startDate) {
-    //       Swal.fire({
-    //         icon: 'error',
-    //         title: 'Oops...',
-    //         text: 'Please select a date!',
-    //       });
-    //       return;
-    //     }
-      
-    //     try {
-    //       const updatedEstate = { ...estate, status: 'booked' };
-    //       await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
-    //       Swal.fire('Success', 'The room has been booked!', 'success');
-    //       closeModal();
-    //     } catch (error) {
-    //       Swal.fire('Error', 'Failed to Confirm Booking', 'error');
-    //       console.error('Failed to update room status:', error);
-    //     }
-    //   };
-      
-
+    const today = new Date();
+    const twoDaysFromNow = new Date();
+    twoDaysFromNow.setDate(today.getDate() + 1);
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
-
-    const twoDaysFromNow = new Date();
-    twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2);
-
 
     const openModal = () => {
         setModalIsOpen(true);
@@ -71,6 +31,37 @@ export default function CardDetails() {
     const closeModal = () => {
         setModalIsOpen(false);
     };
+
+  const confirmBooking = async () => {
+        if (startDate < twoDaysFromNow) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Please choose a date at least two days from now!',
+            });
+            return;
+          }
+      
+        if (estate.status !== 'Available') {
+          Swal.fire('Error', 'Room not available', 'error');
+          return;
+        }
+      
+        try {
+          const { _id, ...estateWithoutId } = estate;
+          const updatedEstate = { ...estateWithoutId, status: 'Booked' };
+          await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
+          Swal.fire('Success', 'The room has been booked!', 'success').then(() => {
+            window.location.reload();
+          });
+        } catch (error) {
+          Swal.fire('Error', 'Failed to update room status', 'error');
+          console.error('Failed to update room status:', error);
+        }
+      };
+      
+
+
 
     return (
         <div className='py-6 border-2 rounded-md px-2 lg:px-6 mb-3'>
