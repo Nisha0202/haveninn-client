@@ -19,6 +19,16 @@ import UserProfile from './pages/UserProfile'
 import Clients from './pages/Clients'
 import Rooms from './pages/Rooms';
 import Bookings from './pages/Bookings';
+
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
+
+
+
+
+
+
 const router = createBrowserRouter([
   {
     path: "/",

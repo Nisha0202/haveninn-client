@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="footer footer-center p-10 bg-gray-600 text-base-content rounded mt-auto">
+    <footer className="footer footer-center p-10 bg-gray-400 text-base-content rounded mt-auto">
   <nav className="grid grid-flow-col gap-4 bg-transparent">
     <Link to='/about' className="link link-hover bg-transparent">About us</Link>
     <Link to='/contact' className="link link-hover bg-transparent">Contact</Link>

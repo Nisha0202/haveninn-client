@@ -27,7 +27,7 @@ const Clients = () => {
                         <p className='text-gray-700 text-left'>{review.comment}</p>
                     </div>
                     <div className='card-footer flex justify-end'>
-                        <span className='text-indigo-500'>Rating: {review.rating} / 5</span>
+                        <span className='text-cyan-600'>Rating: {review.rating} / 5</span>
                     </div>
                 </div>
             ))}

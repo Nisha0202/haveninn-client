@@ -12,3 +12,5 @@
 11. react-helmet
 12. firebase
 13. flowbite
+14. react-modal
+15. react-datepicker
