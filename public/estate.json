@@ -3,36 +3,39 @@
       "id": "1",
       "description": "Elegant Double Room with Eiffel Tower view",
       "price": "350",
-      "status": "availiable",
+      "status": "Available",
       "roomsize": "25m²",
       "image": "https://i.pinimg.com/564x/99/23/2e/99232e37b6c7619c27cc7ea526300985.jpg",
       "roomImages": ["https://i.pinimg.com/564x/50/b3/cc/50b3ccbe6ac2a07f7318ed74ce7e9b5a.jpg", "https://i.pinimg.com/564x/d7/d4/8e/d7d48e0465ca56a1994c7f245bb0fb9b.jpg"],
       "specialOffers": "Complimentary breakfast and free Wi-Fi",
       "reviews": [],
-      "bookingDate": null
+      "bookingDate": null,
+      "bookedEmail":null
   },
   {
       "id": "2",
       "description": "Luxury Suite with panoramic city views",
       "price": "500",
-      "status": "availiable",
+      "status": "Available",
       "roomsize": "40m²",
       "image": "https://i.pinimg.com/564x/ce/eb/0f/ceeb0fbf665a87d2164a95f5d61aba18.jpg",
       "roomImages": ["https://i.pinimg.com/564x/4e/79/e1/4e79e1ddb3bc216f06de9e4165b5e0c5.jpg", "https://i.pinimg.com/564x/04/8c/6d/048c6d8602aa2686d7a5231b76e3d738.jpg"],
       "specialOffers": "One free city tour ticket",
       "reviews": ["Absolutely stunning views and service!"],
-      "bookingDate": null
+      "bookingDate": null,
+      "bookedEmail":null
   },
   {
       "id": "3",
       "description": "Contemporary Queen Room with cityscape",
       "price": "320",
-      "status": "booked",
+      "status": "Available",
       "roomsize": "22m²",
       "image": "https://i.pinimg.com/564x/14/47/25/14472535ffde50813be1138dd9c8e22b.jpg",
       "roomImages": ["https://i.pinimg.com/736x/a1/b4/64/a1b464018b9cd75e335cb8d59afafb1c.jpg", "https://i.pinimg.com/564x/19/65/f9/1965f9c3228eacacb62c4ab5a83a1e1d.jpg"],
       "specialOffers": "Free minibar refreshments",
       "reviews": ["Modern amenities and comfortable bed."],
-      "bookingDate": null
+      "bookingDate": null,
+      "bookedEmail":null
   }
 ]

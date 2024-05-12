@@ -6,9 +6,12 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { useContext } from 'react';
+import { AuthContext } from '../FirebaseProbider/FirbaseProvider'
 
 export default function CardDetails() {
 
+    const { usern } = useContext(AuthContext);
     const estates = useLoaderData();
     const { id } = useParams();
     const estate = estates.find(estate => estate.id === id);
@@ -32,15 +35,15 @@ export default function CardDetails() {
         setModalIsOpen(false);
     };
 
-  const confirmBooking = async () => {
+    const confirmBooking = async () => {
         if (startDate < twoDaysFromNow) {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Please choose a date at least two days from now!',
-            });
-            return;
-          }
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please choose a date at least two days from now!',
+          });
+          return;
+        }
       
         if (estate.status !== 'Available') {
           Swal.fire('Error', 'Room not available', 'error');
@@ -49,7 +52,7 @@ export default function CardDetails() {
       
         try {
           const { _id, ...estateWithoutId } = estate;
-          const updatedEstate = { ...estateWithoutId, status: 'Booked' };
+          const updatedEstate = { ...estateWithoutId, status: 'Booked', bookingDate: startDate, bookedEmail: usern.email };
           await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
           Swal.fire('Success', 'The room has been booked!', 'success').then(() => {
             window.location.reload();
@@ -59,6 +62,7 @@ export default function CardDetails() {
           console.error('Failed to update room status:', error);
         }
       };
+      
       
 
 
