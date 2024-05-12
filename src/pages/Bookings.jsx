@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
-import Card from '../components/Card';
 
 import { AuthContext } from '../FirebaseProbider/FirbaseProvider'
+import CardTwo from '../components/CardTwo';
 
 
 
@@ -24,7 +24,7 @@ const { usern } = useContext(AuthContext);
          <div className='flex flex-wrap flex-col gap-4 md:flex-row md:justify-between lg:justify-between md:gap-16'>
 
 {data.map((estate, index) => (
-        <Card key={index} estate={estate} />
+        <CardTwo key={index} estate={estate} />
       ))}
     </div>
     </div>

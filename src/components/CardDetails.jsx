@@ -52,6 +52,7 @@ export default function CardDetails() {
       
         try {
           const { _id, ...estateWithoutId } = estate;
+          startDate.setHours(0, 0, 0, 0); 
           const updatedEstate = { ...estateWithoutId, status: 'Booked', bookingDate: startDate, bookedEmail: usern.email };
           await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
           Swal.fire('Success', 'The room has been booked!', 'success').then(() => {

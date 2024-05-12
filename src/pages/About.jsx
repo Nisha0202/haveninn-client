@@ -17,7 +17,7 @@ export default function About() {
             </p>
             <div className="my-6 text-center">
                 <Slider/>
-                <p className="text-sm text-gray-500 my-1">Examples of our luxurious properties.</p>
+              
             </div>
         </div>
       
