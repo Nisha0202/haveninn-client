@@ -4,6 +4,9 @@ import { useLoaderData, useParams } from 'react-router-dom'
 import Modal from 'react-modal';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 export default function CardDetails() {
 
     const estates = useLoaderData();
@@ -14,8 +17,52 @@ export default function CardDetails() {
         return <div>No estate found with id {id}</div>;
     }
 
+    const confirmBooking = async () => {
+        try {
+          const { _id, ...estateWithoutId } = estate;
+          const updatedEstate = { ...estateWithoutId, status: 'Booked' };
+          await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
+          Swal.fire('Success', 'The room has been booked!', 'success');
+          closeModal();
+          
+        } catch (error) {
+            Swal.fire('Error', 'Failed to Confirm Booking', 'error');
+            console.error('Failed to update room status:', error);
+        }
+      };
+      
+
+
+
+    // const confirmBooking = async () => {
+    //     if (!startDate) {
+    //       Swal.fire({
+    //         icon: 'error',
+    //         title: 'Oops...',
+    //         text: 'Please select a date!',
+    //       });
+    //       return;
+    //     }
+      
+    //     try {
+    //       const updatedEstate = { ...estate, status: 'booked' };
+    //       await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
+    //       Swal.fire('Success', 'The room has been booked!', 'success');
+    //       closeModal();
+    //     } catch (error) {
+    //       Swal.fire('Error', 'Failed to Confirm Booking', 'error');
+    //       console.error('Failed to update room status:', error);
+    //     }
+    //   };
+      
+
+
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
+
+    const twoDaysFromNow = new Date();
+    twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2);
+
 
     const openModal = () => {
         setModalIsOpen(true);
@@ -35,7 +82,7 @@ export default function CardDetails() {
                             <p className='text-gray-600 text-base border-b-2 py-2'>{estate.description}</p>
                             <p className=' font-normal lg:text-sm/8 text-xs/9'><span className='font-bold lexend lg:text-sm/8 text-xs'>Price:</span> {estate.price}£</p>
 
-                            <table className='max-w-60 text-xs h-20'>
+                            <table className='max-w-80 text-xs h-20'>
                                 <tbody className='text-left'>
                                     <tr >
                                         <td>Status:</td>
@@ -45,6 +92,12 @@ export default function CardDetails() {
                                         <td>Area:</td>
                                         <th>{estate.roomsize}</th>
                                     </tr>
+                                    <tr className=''>
+                                        <td>Special Offers:</td>
+                                        <th className='text-wrap'>{estate.specialOffers}</th>
+                                    </tr>
+                                    
+
                                 </tbody>
                             </table>
                             <div className='btn font-bold bg-pink-300' onClick={openModal}>Book the Room</div>
@@ -64,9 +117,7 @@ export default function CardDetails() {
                                         gap: '12px',
                                     },
                                 }}
-
-                                contentLabel="Room Details"
-                            >
+                                    contentLabel="Room Details"  >
                                 <h2 className='text-xl font-bold bg-transparent'>Room Details</h2>
                                 <p className='bg-transparent'>{estate.description}</p>
                                 <p className='bg-transparent'>Price Per Night: {estate.price}£</p>
@@ -75,15 +126,18 @@ export default function CardDetails() {
                                 <div className='flex flex-col gap-3 items-center justify-center rounded-md'>
                                     <label htmlFor="">Choose a date:</label>
                                     <div>
-                                          <DatePicker
-                                        selected={startDate}
-                                        onChange={(date) => setStartDate(date)}
-                                        monthsShown={2}
-                                    />
+                                        <DatePicker
+                                            selected={startDate}
+                                            onChange={(date) => setStartDate(date)}
+                                            monthsShown={1}
+                                            minDate={twoDaysFromNow}
+                                        />
+
                                     </div>
                                 </div>
 
-                                <div className='btn bg-cyan-600 rounded-md btn-sm mt-6'>Confirm Booking</div>
+                                <button onClick={confirmBooking} className='btn bg-cyan-600 rounded-md btn-sm mt-6'>Confirm Booking</button>
+
                                 <div className='btn btn-sm rounded-md' onClick={closeModal}>Cancle</div>
                             </Modal>
 

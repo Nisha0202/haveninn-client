@@ -14,3 +14,5 @@
 13. flowbite
 14. react-modal
 15. react-datepicker
+16. axios
+
