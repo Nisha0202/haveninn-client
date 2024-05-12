@@ -27,8 +27,6 @@ const Card = ({ estate }) => {
     }
   };
 
-
-
   return (
     <div >
       <div className="card w-[300px] h-96 bg-transparent border-0 rounded-xl gap-4 relative" data-aos="fade">
