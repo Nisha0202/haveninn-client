@@ -24,11 +24,6 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
-
-
-
-
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,7 +37,7 @@ const router = createBrowserRouter([
       {
         path: "/property_details/:id",
         element: <CardDetails />,
-        loader: () => fetch('../estate.json')
+        loader: () => fetch(`http://localhost:5000/rooms`)
       },
       {
         path: "/login",

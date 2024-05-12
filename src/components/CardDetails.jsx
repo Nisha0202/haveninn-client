@@ -11,7 +11,6 @@ export default function CardDetails() {
     const estate = estates.find(estate => estate.id === id);
     console.log(estate);
     if (!estate) {
-
         return <div>No estate found with id {id}</div>;
     }
 
@@ -55,7 +54,7 @@ export default function CardDetails() {
                                 style={{
                                     content: {
                                         width: '80%',
-                                        height: '80%',
+                                        height: '70%',
                                         margin: 'auto',
                                         backgroundColor: '#f5f5f5',
                                         display: 'flex',
@@ -82,18 +81,11 @@ export default function CardDetails() {
                                         monthsShown={2}
                                     />
                                     </div>
-                                  
-
                                 </div>
 
                                 <div className='btn bg-cyan-600 rounded-md btn-sm mt-6'>Confirm Booking</div>
                                 <div className='btn btn-sm rounded-md' onClick={closeModal}>Cancle</div>
                             </Modal>
-
-
-
-
-
 
                             <div className="lg:flex lg:flex-row gap-4 hidden">
 
