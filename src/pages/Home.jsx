@@ -4,6 +4,7 @@ import Slider from '../components/Slider';
 import 'animate.css';
 import Estate from '../components/Estate';
 import MapComponent from '../components/MapComponent';
+import Clients from './Clients';
 
 export default function Home() {
   return (
@@ -24,7 +25,9 @@ export default function Home() {
           Featured Rooms</p>
       </div>
       <Estate />
-      <div className='mb-12'></div>
+      <div className='mb-12'>
+        <Clients/>
+      </div>
     </div>
   );
 }

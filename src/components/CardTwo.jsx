@@ -3,6 +3,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { AuthContext } from '../FirebaseProbider/FirbaseProvider';
 import { useNavigate } from 'react-router-dom';
+import { FaStar } from 'react-icons/fa';
+
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import DatePicker from 'react-datepicker';
@@ -84,8 +86,66 @@ const CardTwo = ({ estate }) => {
   };
   
 
-
-
+  const writeReview = async () => {
+    const { value: formValues } = await Swal.fire({
+      title: 'Write a Review',
+      html:
+        '<div class="flex items-center justify-between">' +
+          '<label for="swal-input1" class="mr-2 star">Rating (1-5): </label>' +
+          '<input id="swal-input1" class="border py-1 px-2 rounded" type="number" min="1" max="5">' +
+        '</div>' +
+        '<div class="mt-4">' +
+          '<label for="swal-input2" class="block mb-2">Comment: </label>' +
+          '<textarea id="swal-input2" class="border py-1 px-2 rounded w-full" placeholder="Enter your comment here..."></textarea>' +
+        '</div>',
+      customClass: {
+        popup: 'bg-gray-100 text-gray-800',
+        title: 'font-bold text-lg',
+        content: 'text-sm'
+      },
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Submit',
+      showCancelButton: true,
+      focusConfirm: false,
+      preConfirm: () => {
+        return [
+          document.getElementById('swal-input1').value,
+          document.getElementById('swal-input2').value
+        ]
+      }
+    });
+  
+    if (formValues) {
+      const [rating, comment] = formValues;
+      const username = usern.email; // Get the username from the logged-in user
+      const timestamp = new Date().toISOString();
+      const roomId = estate._id;
+    
+      if (!rating || !comment) {
+        Swal.fire('Error', 'Please fill both rating and comment.', 'error');
+        return;
+      }
+    
+      const review = {
+        username,
+        rating,
+        comment,
+        timestamp,
+        roomId
+      };
+    
+      try {
+        await axios.post('http://localhost:5000/reviews', review);
+        Swal.fire('Success', 'Your review has been posted.', 'success');
+      } catch (error) {
+        Swal.fire('Error', 'Failed to post review', 'error');
+        console.error('Failed to post review:', error);
+      }
+    }
+    
+    
+  }
 
   const isBookedByCurrentUser = estate.status === 'Booked' && estate.bookedEmail === usern.email;
 
@@ -95,14 +155,14 @@ const CardTwo = ({ estate }) => {
         <div className='indicator w-full'>
           <img className='w-full h-96 rounded-xl border-0' src={estate.image} />
         </div>
-        <div className='bg-gray-300 h-36 bg-opacity-80 absolute w-full mb-4 bottom-0 flex flex-col items-center justify-center'>
+        <div className='bg-gray-300 h-44 bg-opacity-80 absolute w-full mb-4 bottom-0 flex flex-col items-center justify-center'>
           <p className='text-center pt-4 text-wrap bg-transparent'>{estate.price}£/per Night Booked for {estate.bookingDate.slice(0, 10)}</p>
 
           {isBookedByCurrentUser ? (
             <div className='bg-transparent gap-4 flex flex-col items-center justify-center'>
               <button onClick={updateBookingDate} className='btn btn-sm rounded-md border-b-2 border-cyan-800 text-cyan-800 bg-transparent mt-2 font-semibold text-base'>Update Booking Date</button>
-              <button onClick={cancelBooking} className='btn btn-sm mb-6 rounded-md border-b-2 border-red-700 text-red-700 bg-transparent font-semibold text-base'>Cancel Booking</button>
-
+              <button onClick={cancelBooking} className='btn btn-sm rounded-md border-b-2 border-red-700 text-red-700 bg-transparent font-semibold text-base'>Cancel Booking</button>
+              <button onClick={writeReview} className='btn btn-sm mb-6 rounded-md border-b-2 border-pink-700 text-pink-700 bg-transparent font-semibold text-base'>Write a Review</button>
             </div>
           ) : (
             <div></div>  )}
