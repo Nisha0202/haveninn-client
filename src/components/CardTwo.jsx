@@ -13,23 +13,30 @@ const CardTwo = ({ estate }) => {
   }, []);
   const { usern } = useContext(AuthContext);
 
+  //day contrain
+  const oneDayBeforeBookingDate = new Date(estate.bookingDate);
+  oneDayBeforeBookingDate.setDate(oneDayBeforeBookingDate.getDate() - 1);
+  
   const today = new Date();
-  const twoDaysFromNow = new Date();
-  twoDaysFromNow.setDate(today.getDate() + 1);
+  const oneDayAfterToday = new Date();
+  oneDayAfterToday.setDate(oneDayAfterToday.getDate() + 1);
+  
+  
+
 
   const updateBookingDate = async () => {
     const { value: bookingDate } = await Swal.fire({
       title: 'Update Booking Date',
       input: 'date',
-      inputValue: estate.bookingDate,
+      inputValue: new Date(estate.bookingDate).toISOString().slice(0,10),
       inputPlaceholder: 'Select a date',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Update'
-    });
-
-    if (bookingDate) {
+    })
+    const bookingDateObj = new Date(bookingDate);
+    if (bookingDateObj >= oneDayAfterToday) {
       try {
         const { _id, ...estateWithoutId } = estate;
         const updatedEstate = { ...estateWithoutId, bookingDate };
@@ -41,8 +48,12 @@ const CardTwo = ({ estate }) => {
         Swal.fire('Error', 'Failed to update booking date', 'error');
         console.error('Failed to update room status:', error);
       }
+    } else {
+      Swal.fire('Error', 'Your update date has to be at least one day before.', 'error');
     }
   };
+  
+
 
   const cancelBooking = async () => {
     Swal.fire({
@@ -54,7 +65,7 @@ const CardTwo = ({ estate }) => {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, cancel it!'
     }).then(async (result) => {
-      if (result.isConfirmed) {
+      if (result.isConfirmed && today <= oneDayBeforeBookingDate) {
         try {
           const { _id, ...estateWithoutId } = estate;
           const updatedEstate = { ...estateWithoutId, status: 'Available', bookingDate: null, bookedEmail: null };
@@ -66,10 +77,16 @@ const CardTwo = ({ estate }) => {
           Swal.fire('Error', 'Failed to cancel booking', 'error');
           console.error('Failed to update room status:', error);
         }
+      } else {
+        Swal.fire('Error', 'Your cancle date has to be at least one day before.', 'error');
       }
     })
   };
   
+
+
+
+
   const isBookedByCurrentUser = estate.status === 'Booked' && estate.bookedEmail === usern.email;
 
   return (

@@ -40,7 +40,7 @@ export default function CardDetails() {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Please choose a date at least two days from now!',
+            text: 'Please choose a date at least one day before!',
           });
           return;
         }
