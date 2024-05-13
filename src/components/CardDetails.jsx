@@ -126,8 +126,7 @@ export default function CardDetails() {
                                             selected={startDate}
                                             onChange={(date) => setStartDate(date)}
                                             monthsShown={1}
-                                            minDate={twoDaysFromNow}
-                                        />
+                                            minDate={twoDaysFromNow}  />
 
                                     </div>
                                 </div>

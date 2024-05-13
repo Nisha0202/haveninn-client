@@ -34,7 +34,7 @@ const Card = ({ estate }) => {
           <img className='w-full h-96 rounded-xl border-0' src={estate.image} />
         </div>
 
-        <div className='bg-gray-300 p-3 h-32 bg-opacity-70 absolute w-full mb-4 bottom-0 flex flex-col items-center justify-end'>
+        <div className='bg-gray-300 p-3 h-32 bg-opacity-80 absolute w-full mb-4 bottom-0 flex flex-col items-center justify-end'>
           <p className='text-center text-wrap bg-transparent font-semibold'>{estate.description}</p>
           <p className='text-center text-wrap bg-transparent'>{estate.price}£/per Night</p>
           <div className='btn btn-sm rounded-md boreder-b-2 border-zinc-500  text-cyan-900 bg-transparent mt-2 font-bold text-base' onClick={handleViewProperty}>
