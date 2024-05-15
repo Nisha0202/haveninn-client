@@ -25,7 +25,11 @@ export default function Home() {
           Featured Rooms</p>
       </div>
       <Estate />
-      <div className='mb-12'>
+      <div className='text-center mt-12 md:mt-24 opacity-80 mb-6 md:mb-10'>
+        <p className='text-lg font-bold animate__animated animate__flash lexend'>
+          Customer Reviews</p>
+      </div>
+      <div className='mb-16'>
         <Clients/>
       </div>
     </div>

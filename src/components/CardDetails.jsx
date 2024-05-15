@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom'
 import Modal from 'react-modal';
@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../FirebaseProbider/FirbaseProvider'
 
 export default function CardDetails() {
+    const [reviews, setReviews] = useState([]);
 
     const { usern } = useContext(AuthContext);
     const estates = useLoaderData();
@@ -37,39 +38,50 @@ export default function CardDetails() {
 
     const confirmBooking = async () => {
         if (startDate < twoDaysFromNow) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Please choose a date at least one day before!',
-          });
-          return;
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please choose a date at least one day before!',
+            });
+            return;
         }
-      
-        if (estate.status !== 'Available') {
-          Swal.fire('Error', 'Room not available', 'error');
-          return;
-        }
-      
-        try {
-          const { _id, ...estateWithoutId } = estate;
-          startDate.setHours(0, 0, 0, 0); 
-          const updatedEstate = { ...estateWithoutId, status: 'Booked', bookingDate: startDate, bookedEmail: usern.email };
-          await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
-          Swal.fire('Success', 'The room has been booked!', 'success').then(() => {
-            window.location.reload();
-          });
-        } catch (error) {
-          Swal.fire('Error', 'Failed to update room status', 'error');
-          console.error('Failed to update room status:', error);
-        }
-      };
-      
-      
 
+        if (estate.status !== 'Available') {
+            Swal.fire('Error', 'Room not available', 'error');
+            return;
+        }
+
+        try {
+            const { _id, ...estateWithoutId } = estate;
+            startDate.setHours(0, 0, 0, 0);
+            const updatedEstate = { ...estateWithoutId, status: 'Booked', bookingDate: startDate, bookedEmail: usern.email };
+            await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
+            Swal.fire('Success', 'The room has been booked!', 'success').then(() => {
+                window.location.reload();
+            });
+        } catch (error) {
+            Swal.fire('Error', 'Failed to update room status', 'error');
+            console.error('Failed to update room status:', error);
+        }
+    };
+    console.log(estate._id);
+
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/reviews/${estate._id}`);
+                setReviews(response.data);
+            } catch (error) {
+                console.error('Failed to fetch reviews:', error);
+            }
+        };
+
+        fetchReviews();
+    }, [estate._id]);
 
 
     return (
-        <div className='py-6 border-2 rounded-md px-2 lg:px-6 mb-3'>
+        <div className='p-4 border-0 rounded-md lg:px-6 mb-3'>
             <div className='flex flex-col lg:flex-row gap-4 md:gap-8 h-full'>
                 {/* details */}
                 <div className='w-full'>
@@ -92,7 +104,7 @@ export default function CardDetails() {
                                         <td>Special Offers:</td>
                                         <th className='text-wrap'>{estate.specialOffers}</th>
                                     </tr>
-                                    
+
 
                                 </tbody>
                             </table>
@@ -113,7 +125,7 @@ export default function CardDetails() {
                                         gap: '12px',
                                     },
                                 }}
-                                    contentLabel="Room Details"  >
+                                contentLabel="Room Details"  >
                                 <h2 className='text-xl font-bold bg-transparent'>Room Details</h2>
                                 <p className='bg-transparent'>{estate.description}</p>
                                 <p className='bg-transparent'>Price Per Night: {estate.price}£</p>
@@ -126,7 +138,7 @@ export default function CardDetails() {
                                             selected={startDate}
                                             onChange={(date) => setStartDate(date)}
                                             monthsShown={1}
-                                            minDate={twoDaysFromNow}  />
+                                            minDate={twoDaysFromNow} />
 
                                     </div>
                                 </div>
@@ -149,8 +161,29 @@ export default function CardDetails() {
                 <div className='lg:w-2/3 w-full lg:h-[585px] h-80 md:w-72 mx-auto lg:mx-0 rounded-2xl' >
                     <img src={estate.image} alt="" className='w-full h-full rounded-xl border-[2px] border-base-400 object-fill' />
                 </div>
-
             </div>
+
+            {/* reveiws */}
+            <div>
+                <div className='font-bold mt-6'>
+                    Total Reviews: {reviews.length}
+                </div>
+                {reviews.map(review => (
+          <div key={review._id} className='card max-w-80 bg-white p-4 rounded-xl border-2 my-4'>
+            <div className='card-header'>
+              <h5 className='pb-0.4 font-semibold'>{review.username}</h5>
+              <p className='text-xs text-gray-500'>{new Date(review.timestamp).toLocaleDateString()}</p>
+            </div>
+            <div className='card-body px-0'>
+              <p className='text-gray-700 text-left'>{review.comment}</p>
+            </div>
+            <div className='card-footer flex justify-end'>
+              <span className='text-cyan-600'>Rating: {review.rating} / 5</span>
+            </div>
+          </div>
+        ))}
+            </div>
+
         </div>
     )
 }

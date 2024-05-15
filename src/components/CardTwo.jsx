@@ -118,7 +118,7 @@ const CardTwo = ({ estate }) => {
   
     if (formValues) {
       const [rating, comment] = formValues;
-      const username = usern.email; // Get the username from the logged-in user
+      const username = usern.displayName; // Get the username from the logged-in user
       const timestamp = new Date().toISOString();
       const roomId = estate._id;
     

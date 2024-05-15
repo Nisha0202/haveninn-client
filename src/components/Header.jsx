@@ -68,51 +68,6 @@ const toggleMenu = () => {
 
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {/* <div className="navbar-center">
-          <ul className="menu menu-horizontal px-1">
-            <li><NavLink to='/' className={({ isActive }) => (isActive ? "link-active" : "link")}>Home</NavLink></li>
-            <li><NavLink to='/rooms' className={({ isActive }) => (isActive ? "link-active" : "link")}>Rooms</NavLink></li>
-            <li><NavLink to='/contact' className={({ isActive }) => (isActive ? "link-active" : "link")}>Contact</NavLink></li>
-            <li><NavLink to='/about' className={({ isActive }) => (isActive ? "link-active" : "link")}>About</NavLink></li>
-            {usern && <li><NavLink to='/mybookings' className={({ isActive }) => (isActive ? "link-active" : "link")}>My Bookings</NavLink></li>}
-          </ul>
-        </div>
-       {usern ? (
- isLoading ? (
-    <div>Loading user data...</div>
-  ) : (
-    <div className="md:navbar-end">
-      <ul className="menu menu-horizontal px-1 md:text-sm text-xs">
-        <li><NavLink to='/update' className={({ isActive }) => (isActive ? "link-active" : "link")}>Update Profile</NavLink></li>
-      </ul>
-      <div className="avatar rounded-md border-2">
-        <NavLink to='/user' className="w-8 rounded-md">
-          <img className='object-contain rounded-md' src={usern.photoURL} alt="user" title={usern.displayName} />
-        </NavLink>
-      </div>
-      <NavLink to='' onClick={logOut} className="ml-2 text-sm md:text-base px-4 py-2 font-bold btn-ghost text-indigo-700 rounded-md">Log Out</NavLink>
-    </div>
-  )
-) : (
-  <div className="navbar-end">
-    <NavLink to='/login' className="text-sm md:text-base px-4 py-2 font-bold btn-ghost text-indigo-700 rounded-md ">Log In</NavLink>
-  </div>
-)}
- </div> */}
     </>
   )
 }
