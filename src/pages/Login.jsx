@@ -15,7 +15,6 @@ export default function Login() {
     const { googleLogin, usern} = useContext(AuthContext);
     const { signInUser } = useContext(AuthContext);
     const navigate = useNavigate();
-
     useEffect(() => {
         if (usern) {
             navigate('/');
@@ -30,43 +29,85 @@ export default function Login() {
         reset,
         formState: { errors },
     } = useForm();
+const from = location.state || '/';
 
-    const onSubmit = (data) => {
-        const { email, pass } = data; 
-
-    const from = location.state || '/';
-
-        const signIn = async (email, pass) => {
-            try {
-                const result = await signInUser(email, pass);
-                return result;
-                
-            } catch (error) {
-                console.error('Error in signIn:', error);
-                throw error; 
-            }
-        };
-        signIn(email, pass).then(() => {
-            console.log('Login successful');
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login successful',
-                    showConfirmButton: false,
-                    timer: 1500
-                });   
-                
-                navigate(from, {replace:true});
-                reset(); 
-        }).catch((error) => {
-            console.error('Error during login:', error.message);
-                setFormerror(error.message);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Invalid email or password.',
-                });
-        });
+const onSubmit = (data) => {
+    const { email, pass } = data;     
+    const signIn = async (email, pass) => {
+        try {
+            const result = await signInUser(email, pass);
+            return result;
+        } catch (error) {
+            console.error('Error in signIn:', error);
+            throw error; 
+        }
     };
+    signIn(email, pass).then(() => {
+        
+        console.log('Login successful');
+            Swal.fire({
+                icon: 'success',
+                title: 'Login successful',
+                showConfirmButton: false,
+                timer: 1500
+            });
+               navigate(from, {replace:true});
+            reset(); 
+            
+    }).catch((error) => {
+        console.error('Error during login:', error.message);
+            setFormerror(error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Invalid email or password.',
+            });
+    });
+};
+
+
+    // const onSubmit = (data) => {
+    //     const { email, pass } = data; 
+    //     const signIn = async (email, pass) => {
+    //         try {
+    //             const result = await signInUser(email, pass);
+    //             const {data} = await axios.post(`http://localhost:5000/jwt`,{
+    //                 email: result?.user?.email,
+    //             }, {withCredentials: true});
+    //             console.log(data);
+                
+    //             return result;
+    //         } catch (error) {
+    //             console.error('Error in signIn:', error);
+    //             throw error; 
+    //         }
+    //     };
+
+    //     signIn(email, pass).then(() => {
+    //         navigate(from, {replace:true});
+    //         console.log('Login successful');
+    //             Swal.fire({
+    //                 icon: 'success',
+    //                 title: 'Login successful',
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //             });   
+            
+                
+    //             reset(); 
+    //             return;
+    //     }).catch((error) => {
+    //         console.error('Error during login:', error.message);
+    //             setFormerror(error.message);
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Oops...',
+    //                 text: 'Invalid email or password.',
+    //             });
+    //     });
+    // };
+
+
 
     if(usern) return
     return (

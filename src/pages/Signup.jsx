@@ -16,7 +16,7 @@ export default function SignUp() {
 
     useEffect(() => {
         if (usern) {
-            navigate('/');
+            navigate('/login');
         }
     }, [usern, navigate]);
 
@@ -57,6 +57,7 @@ export default function SignUp() {
 
     
     };
+
     if(usern) return
 
     return (

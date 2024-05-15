@@ -26,6 +26,10 @@ export default function FirbaseProvider(props) {
         });
         const updatedUser = await user.reload(); ;
         setUsern(updatedUser); 
+      //   const {data} = await axios.post(`http://localhost:5000/jwt`,{
+      //     email: user?.email,
+      // }, {withCredentials: true});
+      // console.log(data);
         resolve(updatedUser); 
         reload(usern);
       } catch (error) {
@@ -41,6 +45,7 @@ export default function FirbaseProvider(props) {
       // Signed in
       const user = userCredential.user;
       setUsern(user); // Update usern state
+      return user;
     } catch (error) {
       console.error('Error signing in:', error);
       throw error; 
@@ -70,6 +75,8 @@ export default function FirbaseProvider(props) {
       console.log(errorMessage, errorCode);
     }
   };
+
+  
   //google
 
 
@@ -78,10 +85,10 @@ export default function FirbaseProvider(props) {
       .then(async(result) => {
         setUsern(result.user);
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const {data} = await axios.post(`http://localhost:5000/jwt`,{
-          email: result?.user?.email,
-        }, {withCredentials: true}
-      )
+      //   const {data} = await axios.post(`http://localhost:5000/jwt`,{
+      //     email: result?.user?.email,
+      //   }, {withCredentials: true}
+      // )
         console.log(data);
         const accessToken = credential.accessToken;
       })
@@ -115,6 +122,7 @@ export default function FirbaseProvider(props) {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+        // axios.post(`http://localhost:5000/logout`, {withCredentials: true});
         console.log('Sign-out successful');
         setUsern(false);
 

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 
 import { AuthContext } from '../FirebaseProbider/FirbaseProvider'
 import CardTwo from '../components/CardTwo';
+import axios from 'axios';
 
 
 
@@ -17,7 +18,17 @@ const { usern } = useContext(AuthContext);
     }, [usern]);
     
     
-  
+    // useEffect(() => {
+    //   axios.get(`http://localhost:5000/rooms/user?email=${usern.email}`, {withCredentials: true})
+    //     .then(response => {
+    //       setData(response.data);
+
+    //     })
+    //     .catch(error => {
+    //       console.error('Error:', error);
+    //     });
+    // }, [usern]);
+    
   
   return (
     <div className='flex justify-center items-center pb-12'>
