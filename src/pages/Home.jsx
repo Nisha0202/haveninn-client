@@ -28,7 +28,6 @@ export default function Home() {
           content: {
             width: '300px',
             height: '200px',
-        
             top: '50%',
             left: '50%',
             right: 'auto',

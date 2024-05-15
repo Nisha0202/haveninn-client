@@ -21,6 +21,7 @@ import Rooms from './pages/Rooms';
 import Bookings from './pages/Bookings';
 
 import Modal from 'react-modal';
+import PrivateRoute from './PrivateRoute';
 
 Modal.setAppElement('#root');
 
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
+        element: <PrivateRoute><About /></PrivateRoute> ,
       },
       {
         path: "/update",
@@ -70,10 +71,6 @@ const router = createBrowserRouter([
       {
         path: "/user",
         element: <UserProfile/>,
-      },
-      {
-        path: "/clients",
-        element: <Clients/>,
       },
     ],
   },

@@ -52,8 +52,8 @@ const toggleMenu = () => {
   </li>
 </ul>
       <div className="avatar rounded-md border-2">
-        <NavLink to='/user' className="w-8 rounded-md">
-          <img className='object-contain rounded-md' src={usern.photoURL} alt="user" title={usern.displayName} />
+        <NavLink to='/user' className="w-8 h-8 rounded-md">
+          <img className='w-8 h-8 object-fit rounded-md' src={usern.photoURL} alt="user" title={usern.displayName} />
         </NavLink>
       </div>
       <NavLink to='' onClick={logOut} className="ml-2 text-sm md:text-base px-4 py-2 font-bold btn-ghost text-cyan-600 rounded-md">Log Out</NavLink>
