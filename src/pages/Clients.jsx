@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
+
 const Clients = () => {
     const [reviews, setReviews] = useState([]);
     
     useEffect(() => {
       const fetchReviews = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/reviews');
+          const response = await axios.get('https://heaveninnserver.vercel.app/reviews');
           setReviews(response.data);
         } catch (error) {
           console.error('Failed to fetch reviews:', error);

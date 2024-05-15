@@ -37,7 +37,7 @@ const router = createBrowserRouter([
       {
         path: "/property_details/:id",
         element: <CardDetails />,
-        loader: () => fetch(`http://localhost:5000/rooms`)
+        loader: () => fetch(`https://heaveninnserver.vercel.app/rooms`)
       },
       {
         path: "/login",

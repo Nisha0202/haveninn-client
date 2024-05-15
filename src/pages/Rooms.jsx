@@ -6,7 +6,7 @@ export default function Rooms() {
   const [isSorted, setIsSorted] = useState(false);
 
   const fetchData = (sort = false) => {
-    let url = 'http://localhost:5000/rooms';
+    let url = 'https://heaveninnserver.vercel.app/rooms';
     if (sort) {
       url += '?sort=price';
     }

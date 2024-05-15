@@ -11,7 +11,7 @@ const { usern } = useContext(AuthContext);
 
     const [data, setData] = useState([]);
     useEffect(() => {
-      fetch(`http://localhost:5000/rooms/user?email=${usern.email}`)
+      fetch(`https://heaveninnserver.vercel.app/rooms/user?email=${usern.email}`)
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => console.error('Error:', error));
@@ -19,7 +19,7 @@ const { usern } = useContext(AuthContext);
     
     
     // useEffect(() => {
-    //   axios.get(`http://localhost:5000/rooms/user?email=${usern.email}`, {withCredentials: true})
+    //   axios.get(`https://heaveninnserver.vercel.app/rooms/user?email=${usern.email}`, {withCredentials: true})
     //     .then(response => {
     //       setData(response.data);
 

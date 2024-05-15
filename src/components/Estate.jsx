@@ -7,7 +7,7 @@ export default function Estate() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-      fetch('http://localhost:5000/rooms')
+      fetch('https://heaveninnserver.vercel.app/rooms')
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => console.error('Error:', error));

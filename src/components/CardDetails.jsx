@@ -55,7 +55,7 @@ export default function CardDetails() {
             const { _id, ...estateWithoutId } = estate;
             startDate.setHours(0, 0, 0, 0);
             const updatedEstate = { ...estateWithoutId, status: 'Booked', bookingDate: startDate, bookedEmail: usern.email };
-            await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
+            await axios.put(`https://heaveninnserver.vercel.app/rooms/${estate.id}`, updatedEstate);
             Swal.fire('Success', 'The room has been booked!', 'success').then(() => {
                 window.location.reload();
             });
@@ -69,7 +69,7 @@ export default function CardDetails() {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/reviews/${estate._id}`);
+                const response = await axios.get(`https://heaveninnserver.vercel.app/reviews/${estate._id}`);
                 setReviews(response.data);
             } catch (error) {
                 console.error('Failed to fetch reviews:', error);

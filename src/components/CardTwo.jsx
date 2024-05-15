@@ -42,7 +42,8 @@ const CardTwo = ({ estate }) => {
         try {
           const { _id, ...estateWithoutId } = estate;
           const updatedEstate = { ...estateWithoutId, bookingDate };
-          await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
+          await axios.put(`https://heaveninnserver.vercel.app/rooms/${estate.id}`, updatedEstate);
+          
           Swal.fire('Updated', 'Your booking date has been updated.', 'success').then(() => {
             window.location.reload();
           });
@@ -72,7 +73,7 @@ const CardTwo = ({ estate }) => {
           try {
             const { _id, ...estateWithoutId } = estate;
             const updatedEstate = { ...estateWithoutId, status: 'Available', bookingDate: null, bookedEmail: null };
-            await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
+            await axios.put(`https://heaveninnserver.vercel.app/rooms/${estate.id}`, updatedEstate);
             Swal.fire('Cancelled', 'Your booking has been cancelled.', 'success').then(() => {
               window.location.reload();
             });
@@ -140,7 +141,7 @@ const CardTwo = ({ estate }) => {
       };
     
       try {
-        await axios.post('http://localhost:5000/reviews', review);
+        await axios.post('https://heaveninnserver.vercel.app/reviews', review);
         Swal.fire('Success', 'Your review has been posted.', 'success');
       } catch (error) {
         Swal.fire('Error', 'Failed to post review', 'error');

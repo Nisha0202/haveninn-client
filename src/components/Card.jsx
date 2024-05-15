@@ -34,7 +34,7 @@ const Card = ({ estate }) => {
   useEffect(() => {
     const fetchReviews = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/reviews/${estate._id}`);
+            const response = await axios.get(`https://heaveninnserver.vercel.app/reviews/${estate._id}`);
             setReviews(response.data);
         } catch (error) {
             console.error('Failed to fetch reviews:', error);
