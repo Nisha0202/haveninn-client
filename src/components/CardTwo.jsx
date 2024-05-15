@@ -49,7 +49,7 @@ const CardTwo = ({ estate }) => {
             setToast(true);
             setTimeout(() => {
               setToast(false);
-            }, 2000);
+            }, 1000);
             //   setTimeout(function(){
             //     window.location.reload();
             //  }, 2000);
