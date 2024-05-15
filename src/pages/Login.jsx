@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 import { FaGoogle} from "react-icons/fa";
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useLocation, useNavigate} from 'react-router-dom';
 import { useForm } from "react-hook-form"
 import Swal from 'sweetalert2';
 import { AuthContext } from '../FirebaseProbider/FirbaseProvider'
@@ -10,24 +10,32 @@ import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-
 export default function Login() {
     //google sign up
-    const { googleLogin} = useContext(AuthContext);
+    const { googleLogin, usern} = useContext(AuthContext);
     const { signInUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (usern) {
+            navigate('/');
+        }
+    }, [usern, navigate]);
     const [formerror, setFormerror] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const location = useLocation;
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors },
     } = useForm();
-    const navigate = useNavigate();
+
     const onSubmit = (data) => {
-        const { email, pass } = data;    
-        
-        
+        const { email, pass } = data; 
+
+    const from = location.state || '/';
+
         const signIn = async (email, pass) => {
             try {
                 const result = await signInUser(email, pass);
@@ -37,22 +45,6 @@ export default function Login() {
                 throw error; 
             }
         };
-        // const signIn = async (email, pass) => {
-        //     try {
-        //       const response = await signInUser(email, pass);
-        //       // Store the token in localStorage
-        //       localStorage.setItem('token', response.data.token);
-        //       return response;
-        //     } catch (error) {
-        //       console.error('Error in signIn:', error);
-        //       throw error; 
-        //     }
-        //   };
-          
-        //   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-
-
-
         signIn(email, pass).then(() => {
             console.log('Login successful');
                 Swal.fire({
@@ -61,8 +53,9 @@ export default function Login() {
                     showConfirmButton: false,
                     timer: 1500
                 });   
+                
+                navigate(from, {replace:true});
                 reset(); 
-                navigate('/');
         }).catch((error) => {
             console.error('Error during login:', error.message);
                 setFormerror(error.message);
@@ -74,6 +67,7 @@ export default function Login() {
         });
     };
 
+    if(usern) return
     return (
         <div className='flex flex-col items-center gap-8 py-16 px-2'>
          <Helmet>

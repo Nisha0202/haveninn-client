@@ -16,7 +16,6 @@ import About from './pages/About';
 import FirbaseProvider from './FirebaseProbider/FirbaseProvider';
 import UpdateData from './pages/UpdateData';
 import UserProfile from './pages/UserProfile'
-import Clients from './pages/Clients'
 import Rooms from './pages/Rooms';
 import Bookings from './pages/Bookings';
 
@@ -54,23 +53,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/mybookings",
-        element: <Bookings/>,
+        element: <PrivateRoute><Bookings/></PrivateRoute>,
       },
       {
         path: "/contact",
-        element: <Contact/>,
+        element:<PrivateRoute><Contact/></PrivateRoute> ,
       },
       {
         path: "/about",
-        element: <PrivateRoute><About /></PrivateRoute> ,
+        element: <About /> ,
       },
       {
         path: "/update",
-        element: <UpdateData/>,
+        element: <PrivateRoute> <UpdateData/></PrivateRoute>,
       },
       {
         path: "/user",
-        element: <UserProfile/>,
+        element: <PrivateRoute><UserProfile/></PrivateRoute>,
       },
     ],
   },

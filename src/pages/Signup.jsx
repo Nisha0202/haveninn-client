@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,7 +11,15 @@ import { Helmet } from 'react-helmet';
 
 export default function SignUp() {
     const navigate = useNavigate();
-    const { createUser } = useContext(AuthContext);
+    const { createUser, usern } = useContext(AuthContext);
+
+
+    useEffect(() => {
+        if (usern) {
+            navigate('/');
+        }
+    }, [usern, navigate]);
+
     const [formerror, setFormerror] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const {register, handleSubmit, reset,  formState: { errors }, } = useForm();
@@ -49,6 +57,7 @@ export default function SignUp() {
 
     
     };
+    if(usern) return
 
     return (
         <div className='flex flex-col items-center gap-8 py-16 px-2'>
