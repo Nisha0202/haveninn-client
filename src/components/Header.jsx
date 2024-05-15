@@ -17,6 +17,7 @@ const toggleMenu = () => {
   setIsOpen(!isOpen);
 }
 
+
   return (
     <>
       <div className="navbar bg-transparent px-4 lg:px-0 py-6 flex flex-col lg:flex-row justify-between lexend lg:mb-6 mb-0 gap-4">

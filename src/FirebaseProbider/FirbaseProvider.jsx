@@ -6,6 +6,7 @@ import { signOut } from "firebase/auth";
 import { reload } from "firebase/auth";
 import auth from '../firebase/firebase.config';
 import { GithubAuthProvider } from "firebase/auth";
+import axios from 'axios';
 export default function FirbaseProvider(props) {
 
   const googleprovider = new GoogleAuthProvider();
@@ -74,9 +75,14 @@ export default function FirbaseProvider(props) {
 
   const googleLogin = () => {
     signInWithPopup(auth, googleprovider)
-      .then((result) => {
+      .then(async(result) => {
         setUsern(result.user);
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        const {data} = await axios.post(`http://localhost:5000/jwt`,{
+          email: result?.user?.email,
+        }, {withCredentials: true}
+      )
+        console.log(data);
         const accessToken = credential.accessToken;
       })
       .catch((error) => {

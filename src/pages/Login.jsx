@@ -40,6 +40,7 @@ export default function Login() {
             try {
                 const result = await signInUser(email, pass);
                 return result;
+                
             } catch (error) {
                 console.error('Error in signIn:', error);
                 throw error; 
