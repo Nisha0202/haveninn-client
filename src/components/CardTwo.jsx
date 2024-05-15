@@ -2,8 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { AuthContext } from '../FirebaseProbider/FirbaseProvider';
-import { useNavigate } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa';
 
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -37,25 +35,27 @@ const CardTwo = ({ estate }) => {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Update'
     })
-    const bookingDateObj = new Date(bookingDate);
-    if (bookingDateObj >= oneDayAfterToday) {
-      try {
-        const { _id, ...estateWithoutId } = estate;
-        const updatedEstate = { ...estateWithoutId, bookingDate };
-        await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
-        Swal.fire('Updated', 'Your booking date has been updated.', 'success').then(() => {
-          window.location.reload();
-        });
-      } catch (error) {
-        Swal.fire('Error', 'Failed to update booking date', 'error');
-        console.error('Failed to update room status:', error);
+  
+    if (bookingDate) {
+      const bookingDateObj = new Date(bookingDate);
+      if (bookingDateObj >= oneDayAfterToday) {
+        try {
+          const { _id, ...estateWithoutId } = estate;
+          const updatedEstate = { ...estateWithoutId, bookingDate };
+          await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
+          Swal.fire('Updated', 'Your booking date has been updated.', 'success').then(() => {
+            window.location.reload();
+          });
+        } catch (error) {
+          Swal.fire('Error', 'Failed to update booking date', 'error');
+          console.error('Failed to update room status:', error);
+        }
+      } else {
+        Swal.fire('Error', 'Your update date has to be at least one day after.', 'error');
       }
-    } else {
-      Swal.fire('Error', 'Your update date has to be at least one day before.', 'error');
     }
   };
   
-
 
   const cancelBooking = async () => {
     Swal.fire({
@@ -67,23 +67,27 @@ const CardTwo = ({ estate }) => {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, cancel it!'
     }).then(async (result) => {
-      if (result.isConfirmed && today <= oneDayBeforeBookingDate) {
-        try {
-          const { _id, ...estateWithoutId } = estate;
-          const updatedEstate = { ...estateWithoutId, status: 'Available', bookingDate: null, bookedEmail: null };
-          await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
-          Swal.fire('Cancelled', 'Your booking has been cancelled.', 'success').then(() => {
-            window.location.reload();
-          });
-        } catch (error) {
-          Swal.fire('Error', 'Failed to cancel booking', 'error');
-          console.error('Failed to update room status:', error);
+      if (result.isConfirmed) {
+        if (today <= oneDayBeforeBookingDate) {
+          try {
+            const { _id, ...estateWithoutId } = estate;
+            const updatedEstate = { ...estateWithoutId, status: 'Available', bookingDate: null, bookedEmail: null };
+            await axios.put(`http://localhost:5000/rooms/${estate.id}`, updatedEstate);
+            Swal.fire('Cancelled', 'Your booking has been cancelled.', 'success').then(() => {
+              window.location.reload();
+            });
+          } catch (error) {
+            Swal.fire('Error', 'Failed to cancel booking', 'error');
+            console.error('Failed to update room status:', error);
+          }
+        }else{
+            Swal.fire('Error', 'Your cancle date has to be at least one day before.', 'error');
+          
         }
-      } else {
-        Swal.fire('Error', 'Your cancle date has to be at least one day before.', 'error');
       }
     })
   };
+  
   
 
   const writeReview = async () => {
@@ -155,14 +159,14 @@ const CardTwo = ({ estate }) => {
         <div className='indicator w-full'>
           <img className='w-full h-96 rounded-xl border-0' src={estate.image} />
         </div>
-        <div className='bg-gray-300 h-44 bg-opacity-80 absolute w-full mb-4 bottom-0 flex flex-col items-center justify-center'>
+        <div className='bg-gray-300 h-32 bg-opacity-80 absolute w-full mb-4 bottom-0 flex flex-col items-center justify-center'>
           <p className='text-center pt-4 text-wrap bg-transparent'>{estate.price}£/per Night Booked for {estate.bookingDate.slice(0, 10)}</p>
 
           {isBookedByCurrentUser ? (
-            <div className='bg-transparent gap-4 flex flex-col items-center justify-center'>
-              <button onClick={updateBookingDate} className='btn btn-sm rounded-md border-b-2 border-cyan-800 text-cyan-800 bg-transparent mt-2 font-semibold text-base'>Update Booking Date</button>
-              <button onClick={cancelBooking} className='btn btn-sm rounded-md border-b-2 border-red-700 text-red-700 bg-transparent font-semibold text-base'>Cancel Booking</button>
-              <button onClick={writeReview} className='btn btn-sm mb-6 rounded-md border-b-2 border-pink-700 text-pink-700 bg-transparent font-semibold text-base'>Write a Review</button>
+            <div className='bg-transparent gap-4 flex flex-row items-center justify-center my-4'>
+              <a onClick={updateBookingDate} className='font-bold btn btn-sm text-cyan-700 text-base bg-transparent'>Update</a>
+              <button onClick={cancelBooking} className='btn btn-sm font-bold  text-red-700 bg-transparent text-base'>Cancel</button>
+              <button onClick={writeReview} className='btn btn-sm font-bold text-pink-700 bg-transparent text-base'>Review</button>
             </div>
           ) : (
             <div></div>  )}
