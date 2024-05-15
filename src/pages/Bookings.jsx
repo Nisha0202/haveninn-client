@@ -15,7 +15,7 @@ const { usern } = useContext(AuthContext);
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => console.error('Error:', error));
-    }, [usern]);
+    }, [usern,data]);
     
     
     // useEffect(() => {
