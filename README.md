@@ -17,6 +17,5 @@ This project is a hotel booking web application designed to simplify the process
 To run this project locally:
 1. Clone the frontend from [GitHub](https://github.com/Nisha0202/haveninn-client.git).
 3. Navigate to the cloned directory and install dependencies using `npm install`.
-4. Update MongoDB url to your MongoDB database url
 5. Use your web app's Firebase configuration
 6. Start the development server with `npm run dev`.
