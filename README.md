@@ -6,8 +6,7 @@ This project is a hotel booking web application designed to simplify the process
 ## Features
 - **Sign Up and Log In:** Users can create accounts and securely log into the system using their email or google.
 - **Room Booking and Booking Management :** Guests can browse available rooms and book their preferred accommodation. They can cancel or update their bookings as necessary.
-- **Detailed Room Information:** Provides comprehensive details about each room, including amenities and pricing.
-- **Protected Routes:** Ensures that only authenticated users can access booking functionalities.
+- **Protected Routes:** Ensures that only authenticated users can access booking functionalities such as detailed room information.
 
 ## Technologies Used
 - **Frontend:** React, Vite, React Router, Tailwind CSS, Daisy UI, Swiper, Animate.css, AOS Package, React Icons, SweetAlert, React Hook Form, React Helmet.
