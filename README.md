@@ -18,4 +18,5 @@ To run this project locally:
 1. Clone the frontend from [GitHub](https://github.com/Nisha0202/haveninn-client.git).
 3. Navigate to the cloned directory and install dependencies using `npm install`.
 5. Use your web app's Firebase configuration
-6. Start the development server with `npm run dev`.
+6. Since the server side is hosted in the cloud, the client side can function without local server setup.
+7. Start the development server with `npm run dev`.
