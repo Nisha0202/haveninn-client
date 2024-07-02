@@ -26,10 +26,7 @@ export default function FirbaseProvider(props) {
         });
         const updatedUser = await user.reload(); ;
         setUsern(updatedUser); 
-      //   const {data} = await axios.post(`http://localhost:5000/jwt`,{
-      //     email: user?.email,
-      // }, {withCredentials: true});
-      // console.log(data);
+   
         resolve(updatedUser); 
         reload(usern);
       } catch (error) {
