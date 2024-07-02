@@ -1,30 +1,22 @@
-website - https://haveninn4657.netlify.app/
-server side code - https://github.com/Nisha0202/haveninn-server.git
+# website - https://haveninn4657.netlify.app/
+# server side code - https://github.com/Nisha0202/haveninn-server.git
+## Project Overview
+This project is a hotel booking web application designed to simplify the process of finding and booking accommodations. It addresses the need for a user-friendly platform where guests can effortlessly browse available rooms, manage bookings, and get detailed information about each room.
 
-# Features:
-1. Sign Up and Log In 
-2. Book Room
-3. Seee room details
-4. Cancle or Update Booking
-5. Protected Routes
+## Features
+- **Sign Up and Log In:** Users can create accounts and securely log into the system using their email or google.
+- **Room Booking and Booking Management :** Guests can browse available rooms and book their preferred accommodation. They can cancel or update their bookings as necessary.
+- **Detailed Room Information:** Provides comprehensive details about each room, including amenities and pricing.
+- **Protected Routes:** Ensures that only authenticated users can access booking functionalities.
 
-# npm package:
-1. React + vite
-2. react router
-3. tailwind css
-4. daisy ui
-5. swiper
-6. Animate.css
-7. AOS packege
-8. react-icon
-9. sweet-alert
-10. react-hook-form
-11. react-helmet
-12. firebase
-13. flowbite
-14. react-modal
-15. react-datepicker
-16. axios
+## Technologies Used
+- **Frontend:** React, Vite, React Router, Tailwind CSS, Daisy UI, Swiper, Animate.css, AOS Package, React Icons, SweetAlert, React Hook Form, React Helmet.
+- **Backend:** Firebase for authentication for signup and login, Node.js, Express.js, MongoDB Atlas for database.
 
-
-
+## Cloning and Local Setup
+To run this project locally:
+1. Clone the frontend from [GitHub](https://github.com/Nisha0202/haveninn-client.git).
+3. Navigate to the cloned directory and install dependencies using `npm install`.
+4. Update MongoDB url to your MongoDB database url
+5. Use your web app's Firebase configuration
+6. Start the development server with `npm run dev`.
